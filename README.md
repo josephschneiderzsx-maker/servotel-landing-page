@@ -1,125 +1,215 @@
 # SERVOTEL Landing Page
 
-A modern, high-performance landing page for **SERVOTEL Haiti**, built with **React 19**, **Tailwind CSS**, and **Framer Motion**.  
-This project delivers a luxury design aesthetic, dark mode support, and a responsive layout suitable for business and leisure travelers.
+A modern, high-performance landing page for **SERVOTEL Haiti**, built with **React 19**, **Vite**, **Tailwind CSS**, and **Framer Motion**.  
+This project delivers a luxury design aesthetic, dark mode support, a multi-language interface, and a responsive layout suitable for business and leisure travelers. The backend is powered by Node.js and Express, using Resend for email notifications.
 
 ---
 
 ## 🚀 Project Overview
 
-- **Framework**: React 19 + Vite
-- **Styling**: Tailwind CSS (utility-first, responsive design)
-- **Animations**: Framer Motion
-- **Icons**: Lucide React
-- **Map Integration**: Google Maps Embed
-- **Reviews**: Tripadvisor-style widget
+-   **Framework**: React 19 + Vite
+-   **Backend**: Node.js + Express
+-   **Styling**: Tailwind CSS (utility-first, responsive design)
+-   **Animations**: Framer Motion
+-   **Email Service**: Resend
+-   **Icons**: Lucide React
 
 ---
 
 ## 📋 Requirements
 
-- **Node.js** ≥ 18 (recommended: latest LTS)
-- **npm** ≥ 9 (or yarn/pnpm)
+-   **Node.js** ≥ 18 (latest LTS recommended)
+-   **npm** ≥ 9 (or yarn/pnpm)
 
 ---
 
-## 🛠️ Installation & Setup
+## 🛠️ Local Development Setup
 
 ### 1. Clone the repository
 ```bash
 git clone https://github.com/josephschneiderzsx-maker/servotel-landing-page.git
 cd servotel-landing-page
-2. Install dependencies
-bash
+```
+
+### 2. Install dependencies
+```bash
 npm install
-3. Configure Tailwind
-Tailwind config files are already initialized:
+```
 
-tailwind.config.js
+### 3. Configure Environment Variables
+Create a `.env` file in the root of the project and add your development variables. You can use `.env.example` as a template. At a minimum, you'll need your `RESEND_API_KEY`.
 
-postcss.config.js
-
-Ensure tailwind.config.js includes:
-
-js
-export default {
-  content: [
-    "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}"
-  ],
-  theme: {
-    extend: {},
-  },
-  plugins: [],
-}
-4. Run development server
-bash
+### 4. Run the development server
+```bash
 npm run dev
-⚡ Troubleshooting
-Error: Cannot find package '@vitejs/plugin-react' → Fix: Install missing plugin
+```
+The application will be available at `http://localhost:5173`.
 
-bash
-npm install -D @vitejs/plugin-react
-Error: could not determine executable to run when running Tailwind init → Fix: reinstall Tailwind CLI
+---
 
-bash
-npm install -D tailwindcss postcss autoprefixer
-npx tailwindcss init -p
-Audit warnings → Run
+## 🚢 Deployment Guide
 
-bash
-npm audit fix
-(use --force only if necessary)
+This guide covers deploying the application on a Linux server (e.g., Ubuntu) with Nginx as a reverse proxy.
 
-📂 Project Structure
-Code
-servotel-landing-page/
-├── public/              # Static assets
-├── src/
-│   ├── components/      # React components (Hero, Rooms, Amenities, etc.)
-│   ├── App.tsx          # Main app entry
-│   ├── main.tsx         # React DOM render
-│   └── types.ts         # Shared TypeScript types
-├── index.html           # Vite entry HTML
-├── tailwind.config.js   # Tailwind configuration
-├── postcss.config.js    # PostCSS configuration
-├── vite.config.ts       # Vite configuration
-└── package.json
-🖼️ Image Customization Guide
-Section	File	Resolution (px)	Aspect Ratio	Notes
-Hero Slider	components/Hero.tsx	1920×1080	16:9	Dark overlay applied
-About Grid	components/About.tsx	800×1000	4:5 Portrait	Vertical works best
-Rooms	components/Rooms.tsx	800×600	4:3	Consistent size
-Amenities	components/Amenities.tsx	600×800	3:4 Portrait	Portrait images
-Testimonials	components/Testimonials.tsx	100×100	1:1 Square	Cropped to circle
-Logo	components/Navbar.tsx	Height: 100px	Flexible	PNG/SVG preferred
-💡 Tips:
+### Step 1: Build the Frontend
+On your local machine or build server, create the production-ready frontend files:
+```bash
+npm run build
+```
+This command generates a `dist` directory containing the optimized static assets.
 
-Compress images with TinyPNG
+### Step 2: Prepare the Production Server
+1.  **Create a deployment directory** on your server:
+    ```bash
+    ssh your_user@your_server
+    sudo mkdir -p /var/www/servotel
+    sudo chown -R $USER:$USER /var/www/servotel
+    ```
 
-Use .webp for photos, .svg for logos
+2.  **Upload your project files** to the server. You need to upload:
+    -   The contents of the `dist` directory.
+    -   `server.js`
+    -   `package.json`
+    -   `package-lock.json`
+    -   The `components` directory (for email templates).
 
-Dark mode logo handled via CSS filters (brightness-0 invert)
+    After uploading, your `/var/www/servotel` directory should look like this:
+    ```
+    /var/www/servotel/
+    ├── assets/         # From the 'dist' folder
+    ├── components/     # For email templates
+    ├── index.html      # From the 'dist' folder
+    ├── package.json
+    ├── package-lock.json
+    └── server.js
+    ```
 
-🗺️ Location Setup
-To update the Google Map:
+### Step 3: Configure the Production Environment
+1.  **Install Production Dependencies:**
+    Navigate to your deployment directory and install only the necessary packages for the server to run.
+    ```bash
+    cd /var/www/servotel
+    npm install --production
+    ```
 
-Go to Google Maps
+2.  **Create the Environment File:**
+    Create a `.env` file in `/var/www/servotel` and add your production credentials.
+    ```bash
+    nano .env
+    ```
+    Paste the following content, replacing the placeholder values:
+    ```dotenv
+    # The port the Node.js server will run on.
+    PORT=3001
 
-Search for your location
+    # Your Resend API key for sending emails.
+    RESEND_API_KEY="your_production_resend_api_key"
 
-Click Share → Embed a map
+    # The full public URL of your application.
+    API_BASE_URL="https://servotel.itxpress.net"
 
-Copy the iframe src URL
+    # The email address that will receive booking notifications.
+    HOTEL_EMAIL="your_hotel_email@example.com"
 
-Paste into components/Location.tsx
+    # The "From" address for emails sent to customers.
+    FROM_EMAIL="Servotel <no-reply@yourdomain.com>"
 
-🎨 Theme Configuration
-Primary Color: #167347 (Green)
+    # The origin (frontend URL) that is allowed to make requests to the API.
+    ALLOWED_ORIGIN="https://servotel.itxpress.net"
+    ```
 
-Secondary Color: #f59e0b (Gold/Orange)
+### Step 4: Run the Server with a Process Manager
+Using a process manager like **PM2** is highly recommended to keep your application running continuously.
 
-Dark Mode: Toggleable via Navbar icon (class="dark" strategy)
+1.  **Install PM2 globally:**
+    ```bash
+    sudo npm install -g pm2
+    ```
 
-📜 License
+2.  **Start your server with PM2:**
+    ```bash
+    cd /var/www/servotel
+    pm2 start server.js --name servotel-app
+    ```
+
+3.  **Save the process list and enable startup on reboot:**
+    ```bash
+    pm2 save
+    pm2 startup
+    ```
+
+### Step 5: Configure Nginx as a Reverse Proxy
+Create an Nginx configuration file to serve your frontend and forward API requests to your Node.js server.
+
+1.  **Create the Nginx config file:**
+    ```bash
+    sudo nano /etc/nginx/sites-available/servotel.conf
+    ```
+
+2.  **Paste the following configuration:**
+    ```nginx
+    server {
+        server_name servotel.itxpress.net;
+
+        # Main entry point for your application
+        root /var/www/servotel;
+        index index.html;
+
+        # Serve static assets directly
+        location ~* \.(?:ico|css|js|gif|jpe?g|png|webp|svg|woff2?|eot|ttf|otf)$ {
+            expires 1y;
+            add_header Cache-Control "public, immutable";
+        }
+
+        # Handle SPA routing (React Router)
+        location / {
+            try_files $uri /index.html;
+        }
+
+        # Forward API requests to the Node.js server
+        location /api/ {
+            proxy_pass http://localhost:3001; # Matches the PORT in your .env
+            proxy_http_version 1.1;
+            proxy_set_header Upgrade $http_upgrade;
+            proxy_set_header Connection 'upgrade';
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded-Proto $scheme;
+            proxy_cache_bypass $http_upgrade;
+        }
+
+        # SSL Configuration (assuming you use Certbot)
+        listen [::]:443 ssl ipv6only=on;
+        listen 443 ssl;
+        ssl_certificate /etc/letsencrypt/live/servotel.itxpress.net/fullchain.pem;
+        ssl_certificate_key /etc/letsencrypt/live/servotel.itxpress.net/privkey.pem;
+        include /etc/letsencrypt/options-ssl-nginx.conf;
+        ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
+    }
+
+    server {
+        if ($host = servotel.itxpress.net) {
+            return 301 https://$host$request_uri;
+        }
+
+        listen 80;
+        listen [::]:80;
+        server_name servotel.itxpress.net;
+        return 404; # Managed by Certbot for http-01 challenge
+    }
+    ```
+
+3.  **Enable the site and restart Nginx:**
+    ```bash
+    sudo ln -s /etc/nginx/sites-available/servotel.conf /etc/nginx/sites-enabled/
+    sudo nginx -t # Test for syntax errors
+    sudo systemctl restart nginx
+    ```
+
+Your site is now deployed and live!
+
+---
+
+## 📜 License
 MIT © 2025 Servotel Landing Page Project

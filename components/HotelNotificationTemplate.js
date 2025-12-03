@@ -81,39 +81,49 @@ export const HotelNotificationTemplate = ({
   <head>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="color-scheme" content="light only">
+      <meta name="supported-color-schemes" content="light only">
       <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
       <style>
-          body { margin: 0; padding: 0; font-family: 'Inter', sans-serif; background-color: #111827; color: #e5e7eb; }
-          .container { max-width: 600px; margin: 0 auto; background-color: #1f2937; border-radius: 16px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); }
-          .header { background-color: #167347; padding: 30px 20px; text-align: center; }
-          .logo { height: 50px; width: auto; filter: brightness(0) invert(1); }
-          .content { padding: 40px 30px; }
-          .h1 { font-family: 'Playfair Display', serif; color: #ffffff; font-size: 24px; margin-top: 0; margin-bottom: 10px; text-align: center; }
-          .subtitle { color: #d1d5db; text-align: center; margin-bottom: 30px; font-size: 14px; opacity: 0.8; }
-          .data-table { width: 100%; border-collapse: collapse; margin-bottom: 30px; background-color: rgba(255,255,255,0.03); border-radius: 8px; overflow: hidden; }
-          .data-row td { padding: 15px; border-bottom: 1px solid rgba(255,255,255,0.05); color: #d1d5db; font-size: 14px; }
+          :root {
+            color-scheme: light only;
+            supported-color-schemes: light only;
+          }
+          body { margin: 0; padding: 0; font-family: 'Inter', sans-serif; background-color: #f3f4f6; color: #374151; }
+          .container { max-width: 600px; margin: 0 auto; background-color: #ffffff; border-radius: 16px; overflow: hidden; border: 1px solid #e5e7eb; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+          .header { background-color: #f9fafb; padding: 30px 20px; text-align: center; border-bottom: 1px solid #e5e7eb; }
+          .logo { height: 50px; width: auto; }
+          .content { padding: 30px; }
+          .h1 { font-family: 'Playfair Display', serif; color: #1f2937; font-size: 28px; margin-top: 0; margin-bottom: 10px; text-align: center; }
+          .subtitle { color: #6b7280; text-align: center; margin-bottom: 30px; font-size: 16px; }
+          .data-table { width: 100%; border-collapse: collapse; margin-bottom: 30px; background-color: #f9fafb; border-radius: 8px; overflow: hidden; border: 1px solid #e5e7eb; }
+          .data-row td { padding: 15px; border-bottom: 1px solid #e5e7eb; color: #374151; font-size: 14px; }
           .data-row:last-child td { border-bottom: none; }
-          .data-label { font-weight: 600; color: #f59e0b; width: 40%; }
-          .data-value { color: #ffffff; font-weight: 500; }
-          .actions { text-align: center; margin-top: 30px; }
-          .btn { display: inline-block; padding: 12px 24px; border-radius: 50px; text-decoration: none; font-weight: 600; font-size: 14px; margin: 5px; transition: all 0.2s; }
-          .btn-confirm { background-color: #167347; color: white; border: 1px solid #167347; }
-          .btn-deny { background-color: transparent; color: #ef4444; border: 1px solid #ef4444; }
-          .btn-deny:hover { background-color: rgba(239, 68, 68, 0.1); }
-          .footer { background-color: #111827; padding: 20px; text-align: center; font-size: 11px; color: #4b5563; border-top: 1px solid rgba(255,255,255,0.05); }
+          .data-label { font-weight: 600; color: #4b5563; width: 40%; }
+          .data-value { color: #1f2937; font-weight: 500; }
+          .actions { text-align: center; margin-top: 30px; padding-top: 20px; border-top: 1px solid #e5e7eb;}
+          .btn { display: inline-block; padding: 14px 28px; border-radius: 50px; text-decoration: none; font-weight: 600; font-size: 16px; margin: 5px; transition: all 0.2s; border: 1px solid transparent; }
+          .btn-confirm { background-color: #10B981; color: white; }
+          .btn-deny { background-color: #fee2e2; color: #EF4444; }
+          .footer { background-color: #f9fafb; padding: 20px; text-align: center; font-size: 12px; color: #6b7280; border-top: 1px solid #e5e7eb; }
       </style>
   </head>
-  <body>
-      <table width="100%" cellpadding="0" cellspacing="0" role="presentation" style="background-color: #111827; padding: 40px 0;">
+  <body style="background-color: #f3f4f6;">
+      <!--[if gte mso 9]>
+      <v:background xmlns:v="urn:schemas-microsoft-com:vml" fill="t">
+        <v:fill type="tile" src="https://servotel.itxpress.net/assets/images/room-blurred.jpg" color="#f3f4f6"/>
+      </v:background>
+      <![endif]-->
+      <table height="100%" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color: #f3f4f6;" background="https://servotel.itxpress.net/assets/images/room-blurred.jpg">
           <tr>
-              <td align="center">
+              <td valign="top" align="center" style="padding: 40px 0;">
                   <div class="container">
                       <div class="header">
-                          <img src="/public/assets/images/servotel-logo.png" alt="Servotel" class="logo" />
-                          <h1 class="h1" style="margin-top: 15px;">${t.title}</h1>
-                          <p class="subtitle" style="margin: 0;">${t.subtitle}</p>
+                          <img src="https://servotel.itxpress.net/assets/images/servotel-logo.png" alt="Servotel" class="logo" />
                       </div>
                       <div class="content">
+                          <h1 class="h1">${t.title}</h1>
+                          <p class="subtitle">${t.subtitle}</p>
                           <table class="data-table">
                               <tr class="data-row">
                                   <td class="data-label">${t.name}</td>
@@ -121,11 +131,11 @@ export const HotelNotificationTemplate = ({
                               </tr>
                               <tr class="data-row">
                                   <td class="data-label">${t.emailLabel}</td>
-                                  <td class="data-value"><a href="mailto:${email}" style="color: #ffffff; text-decoration: none;">${email}</a></td>
+                                  <td class="data-value"><a href="mailto:${email}" style="color: #1d4ed8; text-decoration: none;">${email}</a></td>
                               </tr>
                               <tr class="data-row">
                                   <td class="data-label">${t.room}</td>
-                                  <td class="data-value" style="color: #f59e0b;">${roomType}</td>
+                                  <td class="data-value" style="color: #059669; font-weight: bold;">${roomType}</td>
                               </tr>
                               <tr class="data-row">
                                   <td class="data-label">${t.dates}</td>
@@ -138,13 +148,13 @@ export const HotelNotificationTemplate = ({
                           </table>
   
                           <div class="actions">
-                              <p style="margin-bottom: 15px; color: #9ca3af; font-size: 13px; text-transform: uppercase; letter-spacing: 1px;">${t.action}</p>
+                              <p style="margin-bottom: 20px; font-size: 14px; font-weight: 600; color: #4b5563;">${t.action}</p>
                               <a href="${confirmUrl}" class="btn btn-confirm">${t.confirm}</a>
                               <a href="${denyUrl}" class="btn btn-deny">${t.deny}</a>
                           </div>
                       </div>
                       <div class="footer">
-                          <p>Internal System Notification • Servotel Booking Engine</p>
+                          <p>Internal System Notification</p>
                       </div>
                   </div>
               </td>
