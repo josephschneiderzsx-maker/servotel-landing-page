@@ -1,0 +1,70 @@
+**Subject: Prompt for generating 4 responsive HTML email templates for Servotel Hotel booking system**
+
+**Objective:**
+Create four fully responsive, high-quality HTML email templates for a hotel booking notification system. The design must be directly inspired by our website's branding, style, and assets, including a simulation of its signature glassmorphism effect.
+
+**1. General Design & Branding Guidelines:**
+
+*   **Logo:** The header of every email must prominently feature the Servotel logo. The logo can be found at this path in the project: `/public/assets/images/servotel-logo.png`. Please embed it directly (e.g., using a CID or a public URL if available).
+*   **Color Palette:**
+    *   Primary Green: `#167347` (for main calls-to-action, headers, links)
+    *   Secondary Amber/Gold: `#f59e0b` (for accents, highlights)
+    *   Dark Background: `#1f2937` (for dark mode or footer backgrounds)
+    *   Text: Use dark grays for light backgrounds and off-white/light gray for dark backgrounds.
+*   **Typography:**
+    *   Headings should use the 'Playfair Display' font family (serif), with a web-safe fallback like Georgia or Times New Roman.
+    *   Body text should use the 'Inter' font family (sans-serif), with a web-safe fallback like Arial, Helvetica, or sans-serif.
+*   **Overall Style:** The emails should feel modern, luxurious, and professional, mirroring the clean aesthetic of the Servotel landing page. Use generous white space, clean lines, and a structured layout. All templates must be mobile-friendly and use inline CSS for maximum compatibility.
+
+---
+
+**2. Email-Safe "Glassmorphism" Effect:**
+
+*   **Limitation:** Direct CSS like `backdrop-filter` is **not supported** in most email clients. We will simulate the effect.
+*   **Technique:** Use a high-quality, pre-blurred background image (like one of the hero images from the website) for the email's main body background. Over this, place the main content in a container styled to look like frosted glass.
+*   **Content Panel CSS (use inline styles):**
+    *   `background-color: rgba(255, 255, 255, 0.1);` /* For a light, transparent feel */
+    *   `border: 1px solid rgba(255, 255, 255, 0.2);` /* Subtle white border */
+    *   `border-radius: 16px;` /* Rounded corners */
+    *   `padding: 20px;`
+    *   For dark mode, you could use `background-color: rgba(20, 30, 40, 0.75);` with a lighter border.
+
+---
+
+**3. Required Email Templates:**
+
+Please create the following four templates, incorporating the branding and glassmorphism effect described above.
+
+**Template 1: Hotel Notification Email**
+*   **Purpose:** To inform the hotel staff of a new booking request.
+*   **Recipient:** Hotel Management/Reservations Team.
+*   **Subject Line:** New Booking Request: {{roomType}} for {{checkIn}}
+*   **Content Placeholders:**
+    *   `{{fullName}}`, `{{email}}`, `{{roomType}}`, `{{checkIn}}`, `{{checkOut}}`, `{{adults}}`, `{{children}}`
+*   **Key Feature:** This email MUST contain two prominent, clickable buttons inside the main content panel:
+    *   A green (`#28a745`) button with the text "Confirm Availability". This will link to `{{confirmUrl}}`.
+    *   A red (`#dc3545`) button with the text "Deny Request". This will link to `{{denyUrl}}`.
+
+**Template 2: Customer Request Acknowledgment**
+*   **Purpose:** To confirm to the customer that their booking request has been received and is pending.
+*   **Recipient:** The Customer.
+*   **Subject Line:** We've Received Your Booking Request at Servotel
+*   **Content:** A polite message thanking the customer and informing them that the hotel is checking availability.
+*   **Content Placeholders:**
+    *   `{{fullName}}`, `{{roomType}}`, `{{checkIn}}`, `{{checkOut}}`
+
+**Template 3: Customer Booking Confirmation**
+*   **Purpose:** A final confirmation email sent after the hotel confirms availability.
+*   **Recipient:** The Customer.
+*   **Subject Line:** ✔️ Your Servotel Booking is Confirmed!
+*   **Content:** A celebratory email confirming the booking is successful.
+*   **Content Placeholders:**
+    *   `{{fullName}}`, `{{roomType}}`, `{{checkIn}}`, `{{checkOut}}`
+
+**Template 4: Customer Booking Denial**
+*   **Purpose:** To inform the customer that their requested room/dates are unavailable.
+*   **Recipient:** The Customer.
+*   **Subject Line:** Update on Your Servotel Booking Request
+*   **Content:** An apologetic email explaining the room is not available and suggesting next steps.
+*   **Content Placeholders:**
+    *   `{{fullName}}`, `{{roomType}}`, `{{checkIn}}`, `{{checkOut}}`
