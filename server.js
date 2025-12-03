@@ -35,6 +35,10 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 
 // --- Security Middleware ---
 
+// Trust the first proxy in front of the app (e.g., Nginx).
+// This is required for express-rate-limit to correctly identify the user's IP.
+app.set('trust proxy', 1);
+
 // 1. Helmet: Adds various security-related HTTP headers to protect against common vulnerabilities.
 app.use(helmet());
 

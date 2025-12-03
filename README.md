@@ -119,23 +119,31 @@ This command generates a `dist` directory containing the optimized static assets
     ```
 
 ### Step 4: Run the Server with a Process Manager
-Using a process manager like **PM2** is highly recommended to keep your application running continuously.
+Using a process manager like **PM2** is highly recommended to keep your application running continuously and enable production mode correctly.
 
 1.  **Install PM2 globally:**
     ```bash
     sudo npm install -g pm2
     ```
 
-2.  **Start your server with PM2:**
+2.  **Start your server for the first time:**
+    Navigate to your deployment directory. Run the `start` command with the `NODE_ENV=production` flag. This is crucial to enable all security features.
     ```bash
     cd /var/www/servotel
-    pm2 start server.js --name servotel-app
+    NODE_ENV=production pm2 start server.js --name servotel-app
     ```
 
 3.  **Save the process list and enable startup on reboot:**
     ```bash
     pm2 save
     pm2 startup
+    ```
+    (Follow the on-screen instructions provided by the `startup` command).
+
+4.  **For future updates:**
+    After updating your files, use the `restart` command. The `--update-env` flag ensures that any changes to `NODE_ENV` are applied.
+    ```bash
+    NODE_ENV=production pm2 restart servotel-app --update-env
     ```
 
 ### Step 5: Configure Nginx as a Reverse Proxy
@@ -147,6 +155,7 @@ Create an Nginx configuration file to serve your frontend and forward API reques
     ```
 
 2.  **Paste the following configuration:**
+    *Note: The `proxy_set_header` directives are essential for passing the correct client information to your backend. This works with the `app.set('trust proxy', 1);` setting in `server.js`, allowing security features like rate limiting to function correctly.*
     ```nginx
     server {
         server_name servotel.itxpress.net;
